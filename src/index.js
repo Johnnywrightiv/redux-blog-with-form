@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import PostsIndex from "./components/PostIndex";
 import PostsShow from "./components/PostsShow";
+import PostsNew from "./components/PostsNew";
 
 import Header from "./components/Header";
 import reducers from "./reducers";
@@ -17,6 +18,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Header>
         <Switch>
+          <Route path='/posts/new' component={PostsNew} />
           <Route path='/posts/:id' component={PostsShow} />
           <Route path='/' component={PostsIndex} />
         </Switch>

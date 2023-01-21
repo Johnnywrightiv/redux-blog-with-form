@@ -1,32 +1,34 @@
-import { FETCH_POSTS, DELETE_POST } from "../actions";
+import { FETCH_POSTS, DELETE_POST, CREATE_POST } from "../actions";
 
 const defaultState = [
-  { "id": 1,
-            "title": "Starting 2021 Right", 
-            "categories": ["health, finances"], 
-            "content": "I'm stating 2021 off the right way!"
-          },
-          { "id": 2,
-            "title": "Learn to Code", 
-            "categories": ["career"], 
-            "content": "I'm learning to code!"
-          },
-          { "id": 3,
-            "title": "Get Rich Quick!", 
-            "categories": ["finances"], 
-            "content": "Save your money!"
-          }
-]
+  {
+    title: "Starting 2021 Right",
+    categories: ["health"],
+    content: "I'm stating 2021 off the right way!",
+  },
+  {
+    title: "Learn to Code",
+    categories: ["career", "finances"],
+    content: "I'm learning to code!",
+  },
+  {
+    title: "Get Rich Quick!",
+    categories: ["finances"],
+    content: "Save your money!",
+  },
+];
 
-const postReducer = function (state = defaultState, action) {
+const postsReducer = function (state = defaultState, action) {
   switch (action.type) {
     case FETCH_POSTS:
       return state;
     case DELETE_POST:
-      return state.filter(post => post.id !== action.payload);
+      return state.filter((post, i) => i !== action.payload);
+    case CREATE_POST:
+      return [action.payload, ...state];
     default:
       return state;
   }
-}
+};
 
-export default postReducer;
+export default postsReducer;
