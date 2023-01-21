@@ -6,8 +6,10 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import PostsIndex from "./components/posts-index";
-import Header from "./components/header";
+import PostsIndex from "./components/PostIndex";
+import PostsShow from "./components/PostsShow";
+
+import Header from "./components/Header";
 import reducers from "./reducers";
 
 ReactDOM.render(
@@ -15,6 +17,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Header>
         <Switch>
+          <Route path='/posts/:id' component={PostsShow} />
           <Route path='/' component={PostsIndex} />
         </Switch>
       </Header>
