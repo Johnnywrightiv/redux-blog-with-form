@@ -1,9 +1,9 @@
-import { FETCH_POSTS } from "../actions";
+import { FETCH_POSTS, DELETE_POST } from "../actions";
 
 const defaultState = [
   { "id": 1,
             "title": "Starting 2021 Right", 
-            "categories": ["health"], 
+            "categories": ["health, finances"], 
             "content": "I'm stating 2021 off the right way!"
           },
           { "id": 2,
@@ -22,6 +22,8 @@ const postReducer = function (state = defaultState, action) {
   switch (action.type) {
     case FETCH_POSTS:
       return state;
+    case DELETE_POST:
+      return state.filter(post => post.id !== action.payload);
     default:
       return state;
   }
