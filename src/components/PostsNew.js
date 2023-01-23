@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { createPost } from '../actions';
 
 const PostsNew = (props) => {
@@ -10,53 +10,46 @@ const PostsNew = (props) => {
   const dispatch = useDispatch();
 
   const handleFormSubmit = (e) => {
-    // Prevents form from doing default action of submitting (refreshing) 
     e.preventDefault();
 
-    dispatch(createPost({
-      // id: 4,
-      title,
-      categories: categories.split(' '),
-      content
-    }));
+    dispatch(
+      createPost({
+        title,
+        categories: categories.split(" "),
+        content,
+      }, () => {
+        props.history.push("/");
+      })
+    );
+  };
 
-    // Redirect to index page
-    props.history.push('/')
-  }
-  
   return (
     <form onSubmit={handleFormSubmit}>
-      <div className="form-group">
-        <label>Title of Post</label>
-        <input 
-          type="text"
-          className="form-control"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+      <div className='form-group'>
+        <label>Title for Post</label>
+        <input
+          className='form-control'
+          value={title} onChange={(e) => setTitle(e.target.value)}></input>
       </div>
+
       <div className="form-group">
         <label>Categories</label>
         <input 
-          type="text"
           className="form-control"
-          value={categories}
-          onChange={(e) => setCategories(e.target.value)}
-        />
+          value={categories} onChange={(e) => setCategories(e.target.value)}></input>
       </div>
+
       <div className="form-group">
         <label>Post Content</label>
-        <input 
-          type="text"
-          className="form-control"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
+        <textarea type='text-area' 
+          className="form-control" 
+          value={content} 
+          onChange={(e) => setContent(e.target.value)}></textarea>
       </div>
 
       <button className="btn btn-primary" type="submit">Submit</button>
     </form>
   )
-}
+};
 
 export default PostsNew;

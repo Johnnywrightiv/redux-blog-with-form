@@ -1,19 +1,27 @@
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { deletePost } from "../actions";
+import { deletePost, fetchPost } from "../actions";
+import { useEffect } from "react";
 
 const PostsShow = (props) => {
+  useEffect(() => {
+    const { id } = props.match.params;
+    dispatch(fetchPost(id));
+  }, []);
+
   const dispatch = useDispatch();
 
   const post = useSelector(({ posts }) => {
-    return posts.find((post, i) => {
-      return i === parseInt(props.match.params.id);
+    return posts.find((post) => {
+      return post._id === props.match.params.id;
     });
   });
 
   if (!post) {
     return <div>Not found</div>;
   }
+
+  console.log(post);
 
   const renderCategories = () => {
     return post.categories.map((category, i) => {
@@ -26,8 +34,9 @@ const PostsShow = (props) => {
   };
 
   const onDeleteClick = () => {
-    dispatch(deletePost(parseInt(props.match.params.id)));
-    props.history.push("/");
+    dispatch(deletePost(props.match.params.id, () => {
+      props.history.push("/");
+    }));
   };
 
   return (

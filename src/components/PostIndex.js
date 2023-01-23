@@ -7,20 +7,23 @@ const PostsIndex = () => {
   const posts = useSelector((state) => state.posts);
   const dispatch = useDispatch();
 
-  console.log(posts);
-
   useEffect(() => {
     dispatch(fetchPosts());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchPosts]);
 
   function renderPosts() {
+    console.log("Posts Arr: ", posts);
     if (posts.length > 0) {
-      return posts.map((post, i) => (
-        <li className="list-group-item" key={i}>
-          <Link to={`/posts/${i}`}>{post.title}</Link>
-        </li>
-      ));
+      return posts.map((post, i) => {
+        if (post.title) {
+          return (
+            <li className="list-group-item" key={post._id}>
+              <Link to={`/posts/${post._id}`}>{post.title}</Link>
+            </li>
+          );
+        }
+      });
     }
     return <div>No posts to show</div>;
   }
