@@ -21,8 +21,6 @@ const PostsShow = (props) => {
     return <div>Not found</div>;
   }
 
-  console.log(post);
-
   const renderCategories = () => {
     return post.categories.map((category, i) => {
       if (post.categories.length - 1 === i) {

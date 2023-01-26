@@ -13,7 +13,6 @@ const PostsIndex = () => {
   }, [fetchPosts]);
 
   function renderPosts() {
-    console.log("Posts Arr: ", posts);
     if (posts.length > 0) {
       return posts.map((post, i) => {
         if (post.title) {
